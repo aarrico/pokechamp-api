@@ -4,3 +4,4 @@ dist/
 .fleet
 .env
 .DS_Store
+.vscode

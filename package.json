@@ -4,9 +4,9 @@
   "description": "API to support a Pokémon team building application",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Microsoft/TypeScript-Node-Starter"
+    "url": "https://github.com/aarrico/pokechamp-api"
   },
-  "author": "Bowden Kelly",
+  "author": "Alexander Arrico",
   "license": "MIT",
   "devDependencies": {
     "@tsconfig/node20": "^20.1.2",
