@@ -30,7 +30,7 @@
     "build": "tsc",
     "start": "node ./dist/app.js",
     "dev": "nodemon -L -e ts --exec \"npm run build && npm start\"",
-    "debug": "nodemon dist/server.js"
+    "debug": "nodemon dist/app.js"
   },
   "dependencies": {
     "@prisma/client": "^5.6.0",
