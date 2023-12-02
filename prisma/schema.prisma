@@ -11,7 +11,7 @@ model typeEffectivness {
   id            String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   attackingType type    @map("attacking_type")
   defendingType type    @map("defending_type")
-  effectiveness Decimal @db.Decimal(1, 1)
+  effectiveness Decimal @db.Decimal(2, 1)
 
   @@index([attackingType, defendingType])
   @@map("type_effectiveness")
