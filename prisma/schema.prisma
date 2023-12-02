@@ -7,17 +7,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model typeEffectivness {
+model TypeEffectivness {
   id            String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  attackingType type    @map("attacking_type")
-  defendingType type    @map("defending_type")
+  attackingType Type    @map("attacking_type")
+  defendingType Type    @map("defending_type")
   effectiveness Decimal @db.Decimal(2, 1)
 
   @@index([attackingType, defendingType])
   @@map("type_effectiveness")
 }
 
-enum type {
+enum Type {
   NORMAL
   WATER
   FIRE

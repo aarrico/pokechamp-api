@@ -1,44 +1,19 @@
 -- CreateEnum
-CREATE TYPE "type" AS ENUM (
-    'NORMAL',
-    'WATER',
-    'FIRE',
-    'GRASS',
-    'PSYCHIC',
-    'DARK',
-    'GHOST',
-    'STEEL',
-    'FAIRY',
-    'ELECTRIC',
-    'POISON',
-    'BUG',
-    'FIGHTING',
-    'ICE',
-    'GROUND',
-    'ROCK',
-    'FLYING',
-    'DRAGON'
-);
+CREATE TYPE "Type" AS ENUM ('NORMAL', 'WATER', 'FIRE', 'GRASS', 'PSYCHIC', 'DARK', 'GHOST', 'STEEL', 'FAIRY', 'ELECTRIC', 'POISON', 'BUG', 'FIGHTING', 'ICE', 'GROUND', 'ROCK', 'FLYING', 'DRAGON');
 
 -- CreateTable
 CREATE TABLE "type_effectiveness" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
-    "attacking_type" "type" NOT NULL,
-    "defending_type" "type" NOT NULL,
-    "effectiveness" DECIMAL(2, 1) NOT NULL,
+    "attacking_type" "Type" NOT NULL,
+    "defending_type" "Type" NOT NULL,
+    "effectiveness" DECIMAL(2,1) NOT NULL,
+
     CONSTRAINT "type_effectiveness_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
 CREATE INDEX "type_effectiveness_attacking_type_defending_type_idx" ON "type_effectiveness"("attacking_type", "defending_type");
 
--- Populate the static type_effectiveness table
-INSERT INTO
-    type_effectiveness (
-        attacking_type,
-        defending_type,
-        effectiveness
-    )
 VALUES
     -- NORMAL
     ('NORMAL', 'NORMAL', 1.0),
