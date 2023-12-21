@@ -7,6 +7,50 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Pokedex {
+  id           String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name         String
+  description  String
+  isMainSeries Boolean    @map("is_main_series")
+  pokemon      DexEntry[]
+
+  @@map("pokedex")
+}
+
+model DexEntry {
+  id        String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  dexNumber Int            @map("dex_number")
+  species   PokemonSpecies @relation(fields: [speciesId], references: [id])
+  speciesId String         @map("species_id") @db.Uuid
+  Pokedex   Pokedex        @relation(fields: [pokedexId], references: [id])
+  pokedexId String         @map("pokedex_id") @db.Uuid
+
+  @@unique([speciesId, pokedexId], name: "species_constraint") /// Guarentees a pokemon species can only be added to a Pokedex once.
+  @@unique([dexNumber, pokedexId], name: "pokedex_number_constraint") /// Guarentees a given Pokedex does not contain duplicate dex entries
+  @@map("dex_entry")
+}
+
+/// Base Pokemon data that is shared across all generations
+model PokemonSpecies {
+  id                   String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  nationalDexNumber    Int     @map("national_dex_number")
+  order                Int
+  name                 String
+  genderRate           Int     @map("gender_rate")
+  captureRate          Int     @map("capture_rate")
+  baseHappiness        Int     @map("base_happiness")
+  isBaby               Boolean @map("is_baby")
+  isLegendary          Boolean @map("is_legendary")
+  isMythical           Boolean @map("is_mythical")
+  hatchCounter         Int     @map("hatch_counter")
+  hasGenderDifferences Boolean @map("has_gender_differences")
+  formsSwitchable      Boolean @map("forms_switchable")
+
+  PokedexEntries DexEntry[]
+
+  @@map("pokemon_species")
+}
+
 model TypeEffectivness {
   id            String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   attackingType Type    @map("attacking_type")
