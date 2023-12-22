@@ -33,7 +33,7 @@
     "typescript": "^5.3.2"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "npx prisma generate && tsc",
     "start": "node ./dist/app.js",
     "dev": "nodemon -L -e ts --exec \"npm run build && npm start\"",
     "debug": "nodemon dist/app.js"
