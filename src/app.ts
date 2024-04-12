@@ -4,7 +4,15 @@ import express from 'express';
 import { PrismaClient } from '@prisma/client';
 import Context from './context';
 
+import pokedexRoutes from './models/pokedex/routes';
+
 dotenv.config();
+
+declare module 'express-serve-static-core' {
+  interface Request {
+    db: PrismaClient;
+  }
+}
 
 const app = express();
 const prisma = new PrismaClient();
@@ -17,6 +25,8 @@ app.use((req, _, next) => {
 });
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use('/pokedex', pokedexRoutes);
 
 app.listen(app.get('port'), () => {
   console.log(
